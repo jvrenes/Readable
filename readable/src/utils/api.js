@@ -29,6 +29,20 @@ const getPosts = async () => {
     return categories
 }
 
+export async function addPostToServer(post) {
+  const response = await fetch( `${api}/posts`, {
+      method: 'POST', 
+      headers,
+     // Body data type must match "Content-Type" header        
+      body: JSON.stringify(post),
+    })
+      try {
+          const post = await response.json();
+      }catch(error) {
+      console.log("Error posting a new post on server", error);
+      }
+}
+
 export function formatDate (timestamp) {
   const d = new Date(timestamp)
   const time = d.toLocaleTimeString('en-US')
@@ -38,3 +52,4 @@ export function formatDate (timestamp) {
 export function generateId () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
+

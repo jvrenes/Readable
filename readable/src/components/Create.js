@@ -1,23 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Form, Button, Row, Col } from 'react-bootstrap'
+import { generateId } from '../utils/api'
+import { handleAddPost } from '../actions/posts'
 
 class Create extends Component {
 
     state = {
-        author: '',
-        category: '',
+        id: generateId(),
+        timestamp: Date.now(),
         title: '',
         body: '',
+        author: '',
+        category: '',
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
-        console.log("HANDELING SUBMIT")
-        //TODO: handle submit
+        this.props.dispatch(handleAddPost(this.state))
+        
     }
 
     handleAuthor = (e) => {
+        e.preventDefault()
         const author = e.target.value
         this.setState(() => ({
             author: author,
@@ -25,6 +30,7 @@ class Create extends Component {
     }
 
     handleCategory = (e) => {
+        e.preventDefault()
         const category = e.target.value
         this.setState(() => ({
             category: category,
@@ -32,6 +38,7 @@ class Create extends Component {
     } 
 
     handleTitle = (e) => {
+        e.preventDefault()
         const title = e.target.value
         this.setState(() => ({
             title: title,
@@ -39,6 +46,7 @@ class Create extends Component {
     } 
 
     handleBody = (e) => {
+        e.preventDefault()
         const body = e.target.value
         this.setState(() => ({
             body: body
@@ -81,7 +89,7 @@ class Create extends Component {
 
                             <Row className="mb-4">
                                 <Col>
-                                    <Form.Control as="textarea" heigth={"300px"} className="" size="lg" placeholder="Post content"/>
+                                    <Form.Control onChange={this.handleBody} as="textarea" heigth={"300px"} className="" size="lg" placeholder="Post content"/>
                                 </Col>
                             </Row>
                            
