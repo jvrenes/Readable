@@ -9,7 +9,7 @@ class Posts extends Component {
     render() {
         const { post } = this.props
         return(
-            <div className="card shadow">
+            <div className="card shadow border-primary">
                 <div className="card-body">
                     <h5 className="card-title">{post.title}</h5>
                     <p className="text-muted mb-0">

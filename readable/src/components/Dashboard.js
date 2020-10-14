@@ -12,10 +12,10 @@ class Dashboard extends Component {
         return(
             <div className="card shadow mt-4">
                 <div className="card-header text-center">
-                    <h1>Readable</h1>
+                    <h1 className="text-primary font-weight-bold">Readable</h1>
                 </div>
                 <div className="card-body">
-                    <h3 className="m-2">Categories:</h3>
+                    {/* <h3 className="m-2">Categories:</h3> */}
                     <Header />
                     <div className="card-deck">
                         {
