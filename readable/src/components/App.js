@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared';
 
-import  Dashboard from './Dashboard'
+import Dashboard from './Dashboard'
+import Create from  './Create'
 
 class App extends Component {
     componentDidMount() {
@@ -11,7 +12,8 @@ class App extends Component {
     render() {
         return (
             <div className='container-sm'>
-                <Dashboard />
+                {/* <Dashboard /> */}
+                <Create />
             </div>
         )
     }

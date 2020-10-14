@@ -5,7 +5,7 @@ export function getInitialData () {
     return Promise.all([
       getCategories(),
       getPosts(),
-    ]).then(([categories, posts]) => ({
+  ``  ]).then(([categories, posts]) => ({
       categories,
       posts,
     }))
@@ -25,12 +25,16 @@ const getPosts = async () => {
         method: 'GET',
         headers
     })
-    const posts = response.json()
-    return posts
+    const categories = response.json()
+    return categories
 }
 
 export function formatDate (timestamp) {
   const d = new Date(timestamp)
   const time = d.toLocaleTimeString('en-US')
   return d.toLocaleDateString() + ' | '+ time.substr(0, 5) + time.slice(-2) 
+}
+
+export function generateId () {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
