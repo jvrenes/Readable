@@ -1,4 +1,4 @@
-import { bindActionCreators } from 'redux'
+
 import { RECEIVE_POSTS } from '../actions/posts'
 
 export default function posts (state = {}, action) {

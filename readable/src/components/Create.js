@@ -5,14 +5,44 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 class Create extends Component {
 
     state = {
-        post: {
-            
-        }
+        author: '',
+        category: '',
+        title: '',
+        body: '',
     }
 
-    handleSubmit = () => {
+    handleSubmit = (e) => {
+        e.preventDefault()
         console.log("HANDELING SUBMIT")
         //TODO: handle submit
+    }
+
+    handleAuthor = (e) => {
+        const author = e.target.value
+        this.setState(() => ({
+            author: author,
+        }))
+    }
+
+    handleCategory = (e) => {
+        const category = e.target.value
+        this.setState(() => ({
+            category: category,
+        }))
+    } 
+
+    handleTitle = (e) => {
+        const title = e.target.value
+        this.setState(() => ({
+            title: title,
+        }))
+    } 
+
+    handleBody = (e) => {
+        const body = e.target.value
+        this.setState(() => ({
+            body: body
+        }))
     }
 
     render() {
@@ -26,13 +56,13 @@ class Create extends Component {
                     <h3 className="m-2 text-center">Create New Post</h3>
                     
                     <div className="card-deck m-4">
-                        <Form className="col-md-12">
+                        <Form className="col-md-12" onSubmit={this.handleSubmit}>
                             <Row className="mb-4">
                                 <Col>
-                                    <Form.Control size="lg" placeholder="Author" />
+                                    <Form.Control onChange={this.handleAuthor} value={this.state.author} size="lg" placeholder="Author" required />
                                 </Col>
                                 <Col>
-                                    <Form.Control as="select" size="lg" defaultValue="Choose category...">
+                                    <Form.Control onChange={this.handleCategory} as="select" size="lg" defaultValue="Choose category..." required>
                                         <option disabled>Choose category...</option>
                                         {
                                             categoryNames.map((category, index) => {
@@ -45,7 +75,7 @@ class Create extends Component {
 
                             <Row className="mb-4">
                                 <Col>
-                                    <Form.Control className="" size="lg" placeholder="Title"/>
+                                    <Form.Control onChange={this.handleTitle} className="" size="lg" placeholder="Title" required/>
                                 </Col>
                             </Row>
 
@@ -68,9 +98,9 @@ class Create extends Component {
 
 function mapStateToProps ({categories}) {
     const categoryNames = []
-    Object.keys(categories).map((category) => {
+    Object.keys(categories).map((category) => (
         categoryNames.push(categories[category].name)
-    })
+    ))
     return {
         categoryNames
     }
