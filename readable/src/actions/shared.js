@@ -8,9 +8,9 @@ export function handleInitialData() {
         dispatch(showLoading())
         return getInitialData()
             .then(({categories, posts}) => {
-                categories.forEach((category) => {
-                    dispatch(receiveCategories(categories))
-                })
+
+                dispatch(receiveCategories(categories))
+                
                 posts.forEach(post => {
                     dispatch(receivePosts(post))
                 })
