@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import toggleOrder from '../actions/order'
 
@@ -36,7 +37,7 @@ class Header extends Component {
                         }
                     </div>
                     <div>
-                        <button type="button" className="btn m-2 btn-outline-primary btn-lg">+ new</button>
+                        <Link to='/add'><button type="button" className="btn m-2 btn-outline-primary btn-lg">+ new</button></Link>
                     </div>
                 </div>
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import Dashboard from './Dashboard'
 import Create from  './Create'
@@ -11,10 +12,12 @@ class App extends Component {
     }
     render() {
         return (
-            <div className='container-sm'>
-                {/* <Dashboard /> */}
-                <Create />
-            </div>
+            <Router>
+                <div className='container-sm'>
+                    <Route path='/' exact component={Dashboard} />
+                    <Route exact path='/add' component={Create} />
+                </div>
+            </Router>
         )
     }
 }

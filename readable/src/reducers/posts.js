@@ -5,10 +5,13 @@ export default function posts (state = {}, action) {
     switch(action.type) {
         case RECEIVE_POSTS:
             const { posts } = action
+            console.log(posts)
             return {
                 ...state,
-                ...posts
+                [posts.id]: posts
             }
+           
+          
         case ADD_POST:
             return {
                 ...state,

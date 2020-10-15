@@ -10,13 +10,14 @@ class Posts extends Component {
         const { post } = this.props
         return(
             <div className="card shadow border-primary">
-                <div className="card-body">
-                    <h5 className="card-title">{post.title}</h5>
-                    <p className="text-muted mb-0">
-                        Score: {post.voteScore} &nbsp;&nbsp; 
-                        {post.voteScore < 0 
-                        ? <AiFillDislike/>
-                        : <AiFillLike/>} </p>
+                <div className="card-body d-flex flex-column justify-content-between">
+                    <h5 className="card-title ">{post.title}</h5>
+                        <p className="text-muted mb-0 ">
+                            Score: {post.voteScore} &nbsp;&nbsp; 
+                            {post.voteScore < 0 
+                            ? <AiFillDislike/>
+                            : <AiFillLike/>}
+                        </p>  
                 </div>
                 <div className="card-footer">
                     <small className="text-muted ">{formatDate(post.timestamp)}</small>
@@ -29,7 +30,6 @@ class Posts extends Component {
 
 function mapStateToProps({posts}, id) {
     const post = posts[id.id]
-    console.log(post)
     return{
         post
     }

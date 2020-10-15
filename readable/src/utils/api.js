@@ -1,5 +1,9 @@
 const api = "http://localhost:3001"
-const headers = { 'Authorization': 'whatever-you-want' }
+let token = localStorage.token
+const headers = {
+  'Accept': 'application/json',
+  'Authorization': token
+}
 
 export function getInitialData () {
     return Promise.all([
@@ -25,23 +29,36 @@ const getPosts = async () => {
         method: 'GET',
         headers
     })
-    const categories = response.json()
-    return categories
+    const posts = response.json()
+    return posts
 }
 
-export async function addPostToServer(post) {
-  const response = await fetch( `${api}/posts`, {
-      method: 'POST', 
-      headers,
-     // Body data type must match "Content-Type" header        
-      body: JSON.stringify(post),
-    })
-      try {
-          const post = await response.json();
-      }catch(error) {
-      console.log("Error posting a new post on server", error);
-      }
-}
+
+// export async function addPostToServer(post) {
+//   const response = await fetch( `${api}/posts`, {
+//       method: 'POST', 
+//       headers,
+//      // Body data type must match "Content-Type" header        
+//       body: JSON.stringify({post}),
+//     })
+//       try {
+//           const post = await response.json();
+//           return post
+//       }catch(error) {
+//       console.log("Error posting a new post on server", error);
+//       }
+// }
+
+export const addPostToServer = (post) =>
+  fetch(`${api}/posts`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify( post )
+  }).then(res => res.json())
+    .then(data => data)
 
 export function formatDate (timestamp) {
   const d = new Date(timestamp)

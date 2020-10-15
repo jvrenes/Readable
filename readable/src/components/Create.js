@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { generateId } from '../utils/api'
 import { handleAddPost } from '../actions/posts'
+import { withRouter } from 'react-router-dom'
 
 class Create extends Component {
 
@@ -18,6 +19,7 @@ class Create extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         this.props.dispatch(handleAddPost(this.state))
+        this.props.history.push(`/`)
         
     }
 
@@ -114,4 +116,4 @@ function mapStateToProps ({categories}) {
     }
 }
 
-export default connect(mapStateToProps)(Create)
+export default withRouter(connect(mapStateToProps)(Create))

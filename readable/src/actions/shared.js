@@ -4,13 +4,16 @@ import { receiveCategories } from '../actions/categories'
 import { receivePosts } from '../actions/posts'
 
 export function handleInitialData() {
-    
     return (dispatch) => {
         dispatch(showLoading())
         return getInitialData()
             .then(({categories, posts}) => {
-                dispatch(receiveCategories(categories))
-                dispatch(receivePosts(posts))
+                categories.forEach((category) => {
+                    dispatch(receiveCategories(categories))
+                })
+                posts.forEach(post => {
+                    dispatch(receivePosts(post))
+                })
                 dispatch(hideLoading())
             })
     }

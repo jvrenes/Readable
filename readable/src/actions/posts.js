@@ -13,11 +13,11 @@ export function receivePosts (posts) {
 }
 
 export function handleAddPost(post) {
-    console.log(post)
+    
     return (dispatch) => {
         return addPostToServer(post)
-            .then(() => {
-                dispatch(addPost(post))
+            .then((res) => {
+                dispatch(addPost(res))
             })
     }
 }
