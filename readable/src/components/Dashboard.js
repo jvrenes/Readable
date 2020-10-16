@@ -8,6 +8,7 @@ import PostThumbnail from './PostThumbnail'
 class Dashboard extends Component {
     
     render() {
+        console.log("PROPSSSSSS: ", this.props)
         const { postsIdsByDate, postsIdsByScore, order, selectedPosts } = this.props
 
         if (selectedPosts.length > 0) {
@@ -55,8 +56,10 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps (state) {
-    const {order, posts, selectCategory} = state
+function mapStateToProps (state, props) {
+    console.log(props)
+    const {order, posts} = state
+    const selectCategory = props.match.params.category
 
     // posts.forEach(post => {
     //     console.log(post)
@@ -72,5 +75,4 @@ function mapStateToProps (state) {
         selectedPosts: Object.values(posts).filter(post => post.category === selectCategory)
     }
 } 
-
 export default connect(mapStateToProps)(Dashboard)

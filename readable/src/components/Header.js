@@ -25,12 +25,12 @@ class Header extends Component {
         this.props.dispatch(toggleOrder(this.state.order === 'byDate' ? 'byScore' : 'byDate'))
     }
 
-    handleSelection = (e) => {
-        e.preventDefault()
-        const category = e.target.value === this.props.selectCategory ? 'null' : e.target.value
+    // handleSelection = (e) => {
+    //     e.preventDefault()
+    //     const category = e.target.value === this.props.selectCategory ? 'null' : e.target.value
 
-        this.props.dispatch(selectCategory(category))
-    }
+    //     this.props.dispatch(selectCategory(category))
+    // }
 
     render() {
         const { categories } = this.props
