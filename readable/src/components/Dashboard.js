@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import selectCategory from '../actions/selectCategory'
 
 import Header from './Header'
 import PostThumbnail from './PostThumbnail'
@@ -7,8 +8,29 @@ import PostThumbnail from './PostThumbnail'
 class Dashboard extends Component {
     
     render() {
+        const { postsIdsByDate, postsIdsByScore, order, selectedPosts } = this.props
 
-        const { postsIdsByDate, postsIdsByScore, order, posts } = this.props
+        if (selectedPosts.length > 0) {
+            console.log(selectedPosts)
+            return (
+                <div className="card shadow mt-4">
+                    <div className="card-header text-center">
+                        <h1 className="text-primary font-weight-bold">Readable</h1>
+                    </div>
+                    <div className="card-body container">
+                        {/* <h3 className="m-2">Categories:</h3> */}
+                        <Header />
+                        <div className="card-deck row row-cols-3">
+                            {
+                                selectedPosts.map((post, index) =>
+                                    <PostThumbnail key={index} id={post.id} />
+                                )
+                            }
+                        </div> 
+                    </div>
+                </div>
+            )
+        }
  
         return(
             <div className="card shadow mt-4">
@@ -34,7 +56,12 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps (state) {
-    const {order, posts} = state
+    const {order, posts, selectCategory} = state
+
+    // posts.forEach(post => {
+    //     console.log(post)
+    // })
+
     return {
         order,
         postsIdsByDate: Object.keys(posts)
@@ -42,6 +69,7 @@ function mapStateToProps (state) {
         postsIdsByScore: Object.keys(posts)
             .sort((a,b)=> posts[b].voteScore - posts[a].voteScore),
         posts,
+        selectedPosts: Object.values(posts).filter(post => post.category === selectCategory)
     }
 } 
 
