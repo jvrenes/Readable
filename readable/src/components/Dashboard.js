@@ -10,12 +10,10 @@ class Dashboard extends Component {
     
     render() {
 
+        console.log(this.props)
+
         const { order, selectedCategory, postsIdsByDate, postsIdsByScore, posts } = this.props
         let postsToRender = []
-        console.log(order)
-        console.log(postsIdsByDate)
-        console.log(postsIdsByScore)
-        console.log(postsToRender)
         
         if ( order === 'byDate' && selectedCategory !== undefined) {
             postsToRender = postsIdsByDate.filter(id => posts[id].category === selectedCategory)
@@ -37,9 +35,12 @@ class Dashboard extends Component {
                     <Header />
                     <div className="card-deck row row-cols-3">
                         {
-                            postsToRender.map((postId, index) => 
+                        postsToRender.length > 0     
+                            ? postsToRender.map((postId, index) => 
                                 <PostThumbnail key={index} id={postId} />
-                                 )
+                                )
+                            : <h3>no results</h3>
+
                     
                         } 
                     </div> 
@@ -111,18 +112,18 @@ class Dashboard extends Component {
 
 function mapStateToProps (state, props) {
 
-    const {order, posts} = state
+    const { order, posts } = state
     const selectedCategory = props.match.params.category
+    const postsNonDeleted = Object.keys(posts).filter((id) => posts[id].deleted === false)
+    console.log("RAW POSTSTSSSS: ", postsNonDeleted)
 
     return {
         order,
         selectedCategory,
         posts, 
-        postsIdsByDate: Object.keys(posts)
-            .sort((a,b)=> posts[b].timestamp - posts[a].timestamp),
-        postsIdsByScore: Object.keys(posts)
-            .sort((a,b)=> posts[b].voteScore - posts[a].voteScore),
-   
+        postsIdsByDate: postsNonDeleted.sort((a,b)=> posts[b].timestamp - posts[a].timestamp),
+        postsIdsByScore: postsNonDeleted.sort((a,b)=> posts[b].voteScore - posts[a].voteScore),
+        postsNonDeleted
         
     }
 } 

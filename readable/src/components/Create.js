@@ -91,7 +91,7 @@ class Create extends Component {
 
                             <Row className="mb-4">
                                 <Col>
-                                    <Form.Control onChange={this.handleBody} as="textarea" heigth={"300px"} className="" size="lg" placeholder="Post content"/>
+                                    <Form.Control onChange={this.handleBody} as="textarea" heigth={"300px"} className="" size="lg" placeholder="Post content" required/>
                                 </Col>
                             </Row>
                            
