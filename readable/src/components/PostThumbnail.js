@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { AiFillDislike, AiFillLike } from 'react-icons/ai'
 
@@ -9,27 +10,29 @@ class Posts extends Component {
     render() {
         const { post } = this.props
         return(
-            <div className="card shadow border-primary">
-                <div className="card-body d-flex flex-column justify-content-between">
-                    <h5 className="card-title ">{post.title}</h5>
-                        <p className="text-muted mb-0 ">
-                            Score: {post.voteScore} &nbsp;&nbsp; 
-                            {post.voteScore < 0 
-                            ? <AiFillDislike/>
-                            : <AiFillLike/>}
-                        </p>  
+            <Link to={`/${post.id}`} className="card shadow border-primary">
+                <div>
+                    <div className="card-body d-flex flex-column justify-content-between">
+                        <h5 className="card-title ">{post.title}</h5>
+                            <p className="text-muted mb-0 ">
+                                Score: {post.voteScore} &nbsp;&nbsp; 
+                                {post.voteScore < 0 
+                                ? <AiFillDislike/>
+                                : <AiFillLike/>}
+                            </p>  
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted ">{formatDate(post.timestamp)}</small>
+                                
+                    </div>
                 </div>
-                <div className="card-footer">
-                    <small className="text-muted ">{formatDate(post.timestamp)}</small>
-                    
-                </div>
-            </div>
+            </Link>            
         )
     }
 }
 
-function mapStateToProps({posts}, id) {
-    const post = posts[id.id]
+function mapStateToProps({posts}, {id}) {
+    const post = posts[id]
     return{
         post
     }

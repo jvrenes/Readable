@@ -115,7 +115,6 @@ function mapStateToProps (state, props) {
     const { order, posts } = state
     const selectedCategory = props.match.params.category
     const postsNonDeleted = Object.keys(posts).filter((id) => posts[id].deleted === false)
-    console.log("RAW POSTSTSSSS: ", postsNonDeleted)
 
     return {
         order,
