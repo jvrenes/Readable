@@ -10,7 +10,7 @@ class Posts extends Component {
     render() {
         const { post } = this.props
         return(
-            <Link to={`/${post.id}`} className="card shadow border-primary">
+            <Link to={`/post/${post.id}`} className="card shadow border-primary">
                 <div>
                     <div className="card-body d-flex flex-column justify-content-between">
                         <h5 className="card-title ">{post.title}</h5>

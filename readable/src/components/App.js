@@ -16,8 +16,8 @@ class App extends Component {
             <Router>
                 <div className='container-sm'>
                     <Route path='/' exact component={Dashboard} />
-                    <Route path='/:id' component={post} />
-                    <Route path='/category/:category' component={Dashboard} />
+                    <Route path='/post/:id' exact component={post} />
+                    <Route path='/category/:category' exact component={Dashboard} />
                     <Route exact path='/add' component={Create} />
                 </div>
             </Router>

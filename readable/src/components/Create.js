@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { generateId } from '../utils/api'
 import { handleAddPost } from '../actions/posts'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 class Create extends Component {
 
@@ -60,7 +60,7 @@ class Create extends Component {
         return(
             <div className="card shadow mt-4">
                 <div className="card-header text-center">
-                    <h1 className="text-primary font-weight-bold">Readable</h1>
+                    <h1 className="text-primary font-weight-bold"><Link to='/'>Readable</Link></h1>
                 </div>
                 <div className="card-body">
                     <h3 className="m-2 text-center">Create New Post</h3>
