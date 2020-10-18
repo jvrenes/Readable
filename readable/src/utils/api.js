@@ -83,3 +83,12 @@ export const modifyPostToServer = (post) => {
     body: JSON.stringify(post)
   }).then((res) => res.json())
 }
+
+export const getComments = id => {
+  console.log("CALLING SERVER", id)
+    return fetch(`${api}/posts/${id}/comments`, {
+      method: 'GET',
+      headers
+    })
+    .then((res) => res.json())
+}

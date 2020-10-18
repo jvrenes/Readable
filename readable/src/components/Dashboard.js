@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { handleInitialData } from '../actions/shared'
 
 import Header from './Header'
 import PostThumbnail from './PostThumbnail'
 
 class Dashboard extends Component {
 
+    componentDidMount() {
+        this.props.dispatch(handleInitialData())
+    }
 
-    
     render() {
-
-        console.log(this.props)
 
         const { order, selectedCategory, postsIdsByDate, postsIdsByScore, posts } = this.props
         let postsToRender = []
@@ -37,7 +38,9 @@ class Dashboard extends Component {
                         {
                         postsToRender.length > 0     
                             ? postsToRender.map((postId, index) => 
-                                <PostThumbnail key={index} id={postId} />
+                                posts[postId].deleted === false
+                                ? <PostThumbnail key={index} id={postId} />
+                                : null
                                 )
                             : <h3>no results</h3>
 
@@ -47,66 +50,6 @@ class Dashboard extends Component {
                 </div>
             </div>
         )
-
-        
-        // if (categoryIdsByScore.length > 0 || categoryIdsByDate > 0) {
-        //     return (
-        //         <div className="card shadow mt-4">
-        //             <div className="card-header text-center">
-        //                 <h1 className="text-primary font-weight-bold">Readable</h1>
-        //             </div>
-        //             <div className="card-body container">
-        //                 {/* <h3 className="m-2">Categories:</h3> */}
-        //                 <Header />
-        //                 <div className="card-deck row row-cols-3">
-        //                     {
-        //                         order === 'byDate'
-        //                         ? categoryIdsByDate.map((postId, index) => 
-        //                             <PostThumbnail key={index} id={postId} />)
-        //                         : categoryIdsByScore.map((postId, index) =>
-        //                             <PostThumbnail key={index} id={postId} />)    
-
-        //                     }
-        //                 </div> 
-        //             </div>
-        //         </div>
-        //     )
-        // } else if ( selectedCategory === undefined ){
-        //     return(
-        //         <div className="card shadow mt-4">
-        //             <div className="card-header text-center">
-        //                 <h1 className="text-primary font-weight-bold">Readable</h1>
-        //             </div>
-        //             <div className="card-body container">
-        //                 {/* <h3 className="m-2">Categories:</h3> */}
-        //                 <Header />
-        //                 <div className="card-deck row row-cols-3">
-        //                     {
-        //                         order === 'byDate'
-        //                         ? postsIdsByDate.map((postId, index) => 
-        //                             <PostThumbnail key={index} id={postId} />
-        //                              )
-        //                         : postsIdsByScore.map((postId, index) => 
-        //                             <PostThumbnail key={index} id={postId} /> )
-        //                     } 
-        //                 </div> 
-        //             </div>
-        //         </div>
-        //     )    
-        // } else {
-        //     return(
-        //         <div className="card shadow mt-4">
-        //             <div className="card-header text-center">
-        //                 <h1 className="text-primary font-weight-bold">Readable</h1>
-        //             </div>
-        //             <div className="card-body container">
-        //                 {/* <h3 className="m-2">Categories:</h3> */}
-        //                 <Header />
-        //                 <h3 className="text-center">No posts found for <em>{selectedCategory}</em> category</h3> 
-        //             </div>
-        //         </div>
-        //     )
-        // }
     }
 }
 
@@ -114,16 +57,14 @@ function mapStateToProps (state, props) {
 
     const { order, posts } = state
     const selectedCategory = props.match.params.category
-    const postsNonDeleted = Object.keys(posts).filter((id) => posts[id].deleted === false)
+    
 
     return {
         order,
         selectedCategory,
         posts, 
-        postsIdsByDate: postsNonDeleted.sort((a,b)=> posts[b].timestamp - posts[a].timestamp),
-        postsIdsByScore: postsNonDeleted.sort((a,b)=> posts[b].voteScore - posts[a].voteScore),
-        postsNonDeleted
-        
+        postsIdsByDate: Object.keys(posts).sort((a,b)=> posts[b].timestamp - posts[a].timestamp),
+        postsIdsByScore: Object.keys(posts).sort((a,b)=> posts[b].voteScore - posts[a].voteScore)
     }
 } 
 export default connect(mapStateToProps)(Dashboard)

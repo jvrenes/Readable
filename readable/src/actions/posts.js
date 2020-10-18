@@ -46,6 +46,7 @@ export function handleChangeVote (vote, id) {
 
 export function handleDeletePost (post) {
     return (dispatch) => {
+        console.log("DLETING POST: ", post)
         dispatch(deletePost(post))
         return deletePostToServer(post.id)
             .catch((err) => {

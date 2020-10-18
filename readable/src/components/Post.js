@@ -5,9 +5,19 @@ import { formatDate } from '../utils/api'
 import { AiOutlineDislike, AiOutlineLike, AiFillDislike, AiFillLike } from 'react-icons/ai'
 import { Button } from 'react-bootstrap'
 import { handleChangeVote, handleDeletePost } from '../actions/posts'
+import { handleComments } from '../actions/comments'
 
 
 class Post extends Component {
+
+    state = {
+        toHome: false,
+    }
+
+    componentDidMount() {
+        const { id } = this.props
+        this.props.dispatch(handleComments(id))
+    }
 
     handleVoteUp = () => {
         const { id } = this.props
@@ -24,13 +34,15 @@ class Post extends Component {
     handleDelete = () => {
         const { post } = this.props
         this.props.dispatch(handleDeletePost(post))
-        this.props.history.push('/')
+        this.setState(() => ({
+            toHome: true
+        }))
     }
 
     render() {
         const { post, id } = this.props
 
-        if (post === undefined) {
+        if (post === undefined || this.state.toHome === true) {
             return <Redirect to='/' />
         } else {
             return (
@@ -76,7 +88,7 @@ class Post extends Component {
     }
 }
 
-function mapStateToProps({posts}, props) {
+function mapStateToProps({posts, comments}, props) {
     const { id } = props.match.params
     const post = posts[id]
     
