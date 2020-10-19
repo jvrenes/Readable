@@ -36,7 +36,7 @@ class Dashboard extends Component {
                 <div className="card-body container">
                     {/* <h3 className="m-2">Categories:</h3> */}
                     <Header />
-                    <div className="card-deck row d-flex flex-row justify-content-between flex-wrap">
+                    <div className="card-deck d-flex flex-column justify-content-between flex-wrap">
                         {
                         postsToRender.length > 0     
                             ? postsToRender.map((postId, index) => 

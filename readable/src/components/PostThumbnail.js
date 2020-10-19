@@ -10,8 +10,8 @@ class Posts extends Component {
     render() {
         const { post } = this.props
         return(
-            <Link to={`/post/${post.id}`}>
-                <div className="card shadow border-primary " >
+            <div className="card p-0 mb-2 " >
+                <Link to={`/post/${post.id}`} className="">
                     <div className="card-body">
                         <h5 className="card-title ">{post.title}</h5>
                             <p className="text-muted mb-0 ">
@@ -25,8 +25,9 @@ class Posts extends Component {
                         <small className="text-muted ">{formatDate(post.timestamp)}</small>
                                 
                     </div>
-                </div>
-            </Link>            
+                </Link>
+            </div>
+                        
         )
     }
 }
