@@ -1,6 +1,7 @@
-import { getComments } from '../utils/api'
+import { getComments, changeCommentVoteToServer, deleteCommentToServer } from '../utils/api'
 
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const RESET_COMMENTS = 'RESET_COMMENTS'
 
 
 export const handleComments = (id) => {
@@ -20,3 +21,24 @@ function addComment (comment) {
         comment
     }
 } 
+
+export function resetComments () {
+    return  {
+        type: RESET_COMMENTS
+    }
+}
+
+export function handleUpdateScore(vote, id) {
+    return (dispatch) => {
+        return changeCommentVoteToServer(vote, id)
+        .then((data) => dispatch(addComment(data)))
+    }
+ }
+
+ export function handleDeleteComment(id) {
+     console.log(id)
+     return (dispatch) => {
+         return deleteCommentToServer(id)
+            .then((data) => dispatch(addComment(data)))
+     }
+ }

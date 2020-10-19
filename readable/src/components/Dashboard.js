@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { resetComments } from '../actions/comments'
 import { handleInitialData } from '../actions/shared'
-
+ 
 import Header from './Header'
 import PostThumbnail from './PostThumbnail'
 
@@ -9,6 +10,7 @@ class Dashboard extends Component {
 
     componentDidMount() {
         this.props.dispatch(handleInitialData())
+        this.props.dispatch(resetComments())
     }
 
     render() {

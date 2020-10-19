@@ -6,6 +6,7 @@ import { AiOutlineDislike, AiOutlineLike, AiFillDislike, AiFillLike } from 'reac
 import { Button } from 'react-bootstrap'
 import { handleChangeVote, handleDeletePost } from '../actions/posts'
 import { handleComments } from '../actions/comments'
+import Comments from './Comments'
 
 
 class Post extends Component {
@@ -40,8 +41,7 @@ class Post extends Component {
     }
 
     render() {
-        const { post, id } = this.props
-
+        const { post, id, comments } = this.props
         if (post === undefined || this.state.toHome === true) {
             return <Redirect to='/' />
         } else {
@@ -51,7 +51,7 @@ class Post extends Component {
                         <h1 className="text-primary font-weight-bold"><Link to='/'>Readable</Link></h1>
                     </div>
                     <div className="card-body container fluid">
-                        <div className="card-deck row">
+                        <div className="card-deck row d-flex flex-column ">
                             <div className="card shadow mt-4">
                                 <div className="card-header text-center">
                                     <h3 className="text-primary float-left font-weight-bold d-inline">Post details</h3>
@@ -78,10 +78,16 @@ class Post extends Component {
                                     ? <AiFillDislike/>
                                     : <AiFillLike/>}
                                     </p>
+                                    
                                 </div>
                             </div>
+                            { Object.keys(comments).length > 0 
+                                    ? <Comments parentId={id}/> 
+                                    : <p>No comments</p>}
                         </div> 
                     </div> 
+
+
                 </div>
             ) 
         }
@@ -95,6 +101,7 @@ function mapStateToProps({posts, comments}, props) {
     return{
         post,
         id,
+        comments
     }
 }
 

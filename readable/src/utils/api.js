@@ -91,3 +91,22 @@ export const getComments = id => {
     })
     .then((res) => res.json())
 }
+
+export const changeCommentVoteToServer = (vote, id) => {
+  console.log(vote, id)
+  return fetch(`${api}/comments/${id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({option: vote})
+  }).then((res) => res.json())
+}
+
+export const deleteCommentToServer = id => {
+  return fetch(`${api}/comments/${id}`, {
+    method: 'DELETE',
+    headers
+  }).then((res) => res.json())
+}

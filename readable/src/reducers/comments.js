@@ -1,4 +1,4 @@
-import { ADD_COMMENT } from "../actions/comments";
+import { ADD_COMMENT, RESET_COMMENTS } from "../actions/comments";
 
 export default function comments (state = {}, action) {
     switch(action.type) {
@@ -7,6 +7,10 @@ export default function comments (state = {}, action) {
                 ...state,
                 [action.comment.id]: action.comment
             } 
+        case RESET_COMMENTS:
+            return {
+                
+            }
         default:
             return state
     }
