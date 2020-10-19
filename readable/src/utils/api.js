@@ -110,3 +110,14 @@ export const deleteCommentToServer = id => {
     headers
   }).then((res) => res.json())
 }
+
+export const addCommentToServer = comment => {
+  return fetch(`${api}/comments/`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(comment) 
+  }).then((res) => res.json())
+}

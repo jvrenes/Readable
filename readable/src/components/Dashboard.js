@@ -36,7 +36,7 @@ class Dashboard extends Component {
                 <div className="card-body container">
                     {/* <h3 className="m-2">Categories:</h3> */}
                     <Header />
-                    <div className="card-deck row row-cols-3">
+                    <div className="card-deck row d-flex flex-row justify-content-between flex-wrap">
                         {
                         postsToRender.length > 0     
                             ? postsToRender.map((postId, index) => 
@@ -44,7 +44,7 @@ class Dashboard extends Component {
                                 ? <PostThumbnail key={index} id={postId} />
                                 : null
                                 )
-                            : <h3>no results</h3>
+                            : <h3 className="text-center ml-3">no results</h3>
 
                     
                         } 

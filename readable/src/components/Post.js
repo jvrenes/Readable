@@ -7,6 +7,7 @@ import { Button } from 'react-bootstrap'
 import { handleChangeVote, handleDeletePost } from '../actions/posts'
 import { handleComments } from '../actions/comments'
 import Comments from './Comments'
+import CreateComment from './CreateComment'
 
 
 class Post extends Component {
@@ -81,13 +82,9 @@ class Post extends Component {
                                     
                                 </div>
                             </div>
-                            { Object.keys(comments).length > 0 
-                                    ? <Comments parentId={id}/> 
-                                    : <p>No comments</p>}
+                            <Comments parentId={id}/> 
                         </div> 
                     </div> 
-
-
                 </div>
             ) 
         }
