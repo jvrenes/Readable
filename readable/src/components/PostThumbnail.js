@@ -10,9 +10,9 @@ class Posts extends Component {
     render() {
         const { post } = this.props
         return(
-            <Link to={`/post/${post.id}`} className="card shadow border-primary">
-                <div>
-                    <div className="card-body d-flex flex-column justify-content-between">
+            <Link to={`/post/${post.id}`} className="card shadow border-primary ">
+                <div className="d-flex justify-content-between flex-column" >
+                    <div className="card-body">
                         <h5 className="card-title ">{post.title}</h5>
                             <p className="text-muted mb-0 ">
                                 Score: {post.voteScore} &nbsp;&nbsp; 
@@ -21,7 +21,7 @@ class Posts extends Component {
                                 : <AiFillLike/>}
                             </p>  
                     </div>
-                    <div className="card-footer">
+                    <div className="card-footer mb-auto">
                         <small className="text-muted ">{formatDate(post.timestamp)}</small>
                                 
                     </div>
