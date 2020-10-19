@@ -1,24 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Form, Button, Row, Col } from 'react-bootstrap'
-import { generateId } from '../utils/api'
-import { handleAddPost } from '../actions/posts'
-import { withRouter, Link } from 'react-router-dom'
+import { handleModifyPost } from '../actions/posts'
+import { withRouter, Link, Redirect } from 'react-router-dom'
 
 class Create extends Component {
 
     state = {
-        id: generateId(),
-        timestamp: Date.now(),
+        id: '',
+        timestamp: '',
         title: '',
         body: '',
         author: '',
         category: '',
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = (e, post) => {
         e.preventDefault()
-        this.props.dispatch(handleAddPost(this.state))
+        this.props.dispatch(handleModifyPost(this.state))
         this.props.history.push(`/`)
         
     }
@@ -55,24 +54,43 @@ class Create extends Component {
         }))
     }
 
+    componentDidMount() {
+        const { post } = this.props
+        this.setState(() => ({
+            id: post.id,
+            timestamp: post.timestamp,
+            title: post.title,
+            body: post.body,
+            author: post.author,
+            category: post.category,
+
+        }))
+    }
+
     render() {
-        const { categoryNames } = this.props
+        const { categoryNames, post } = this.props
+        if (post === undefined) {
+            return <Redirect to='/' />
+        }
+        
         return(
+            
             <div className="card shadow mt-4">
                 <div className="card-header text-center">
                     <h1 className="text-primary font-weight-bold"><Link to='/'>Readable</Link></h1>
                 </div>
                 <div className="card-body">
-                    <h3 className="m-2 text-center">Create New Post</h3>
-                    
+                    <h3 className="m-2 text-center">Edit Post</h3>
                     <div className="card-deck m-4">
-                        <Form className="col-md-12" onSubmit={this.handleSubmit}>
+                        <Form className="col-md-12" onSubmit={(e) =>this.handleSubmit(e, post)}>
                             <Row className="mb-4">
                                 <Col>
-                                    <Form.Control onChange={this.handleAuthor} value={this.state.author} size="lg" placeholder="Author" required />
+                                    <Form.Label>Author</Form.Label>
+                                    <Form.Control onChange={this.handleAuthor} value={this.state.author} size="lg" placeholder={post.author} />
                                 </Col>
                                 <Col>
-                                    <Form.Control onChange={this.handleCategory} as="select" size="lg" defaultValue="Choose category..." required>
+                                    <Form.Label>Category</Form.Label>
+                                    <Form.Control onChange={this.handleCategory} as="select" size="lg" defaultValue={post.category} selected={post.category} >
                                         <option disabled>Choose category...</option>
                                         {
                                             categoryNames.map((category, index) => {
@@ -82,21 +100,21 @@ class Create extends Component {
                                     </Form.Control>
                                 </Col>
                             </Row>
-
                             <Row className="mb-4">
                                 <Col>
-                                    <Form.Control onChange={this.handleTitle} className="" size="lg" placeholder="Title" required/>
+                                    <Form.Label>Title</Form.Label>
+                                    <Form.Control onChange={this.handleTitle} className="" size="lg" placeholder={post.title} />
                                 </Col>
                             </Row>
-
                             <Row className="mb-4">
                                 <Col>
-                                    <Form.Control onChange={this.handleBody} as="textarea" heigth={"300px"} className="" size="lg" placeholder="Post content" required/>
+                                    <Form.Label>Post Content</Form.Label>
+                                    <Form.Control onChange={this.handleBody} as="textarea" heigth={"300px"} className="" size="lg" placeholder={post.body} />
                                 </Col>
                             </Row>
-                           
+                                    
                             <Button variant="primary" type="submit" size="lg">
-                                Submit
+                                Confirm
                             </Button>
                         </Form>
                     </div> 
@@ -106,13 +124,18 @@ class Create extends Component {
     }
 }
 
-function mapStateToProps ({categories}) {
+function mapStateToProps ({categories, posts}, props) {
     const categoryNames = []
+    const { id } = props.match.params 
+    const post = posts[id]
     Object.keys(categories).map((category) => (
         categoryNames.push(categories[category].name)
     ))
+    
     return {
-        categoryNames
+        categoryNames,
+        post,
+        id
     }
 }
 

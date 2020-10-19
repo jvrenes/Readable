@@ -9,3 +9,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.vote {
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+}
