@@ -1,4 +1,4 @@
-import { addPostToServer, changeVoteToServer, deletePostToServer, modifyPostToServer } from '../utils/api'
+import { addPostToServer, changeVoteToServer, deletePostToServer, getPost, modifyPostToServer } from '../utils/api'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const ADD_POST = 'ADD_POST'
@@ -68,5 +68,16 @@ export function handleModifyPost (post) {
         return modifyPostToServer(post)
         .catch((err) => alert("There was an error modufying the post. Try again"))
         .then((data) => dispatch(addPost(data)))
+    }
+}
+
+export function handleGetPost (id) {
+    return (dispatch) => {
+        return getPost(id)
+            .catch((err) => alert("There was an error getting the post from server"))
+            .then((data) => {
+                console.log(data)
+                dispatch(addPost(data))
+            })
     }
 }

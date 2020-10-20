@@ -11,13 +11,16 @@ class Comments extends Component {
         return(
             <div className="mt-2 ml-4 mr-2">
                 <div className="card-body">
-                    <h4 className="text-primary font-weight-bold">Comments</h4>
+                    {Object.keys(comments).length === 1 
+                    ? <h4 className="text-primary font-weight-bold">1 Comment</h4>
+                    : <h4 className="text-primary font-weight-bold">{Object.keys(comments).length} Comments</h4>
+                    }
                     {
-                        commentsIds.map((id, index) => (
+                        commentsIds.map((id, index) => 
                             comments[id].deleted === false 
                             ? <Comment key={index} id={id} />
                             : null
-                        ))
+                        )
                     }
                     <CreateComment />
                 </div>
@@ -26,13 +29,12 @@ class Comments extends Component {
     }
 }
 
-function mapStateToPros ({comments}, {parentID}) {
+function mapStateToPros ({comments}) {
 
     return {
         commentsIds: Object.keys(comments)
         .sort((a,b)=> comments[b].timestamp - comments[a].timestamp),
         comments,
-        parentID
     }
 }
  

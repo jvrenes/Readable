@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Dashboard from './Dashboard'
 import Create from  './Create'
 import Post from './Post'
 import Edit from './Edit'
+import Error from './Error'
 
 class App extends Component {
     componentDidMount() {
@@ -16,11 +17,14 @@ class App extends Component {
         return (
             <Router>
                 <div className='container-sm'>
-                    <Route path='/' exact component={Dashboard} />
-                    <Route path='/post/:id' exact component={Post} />
-                    <Route path='/category/:category' exact component={Dashboard} />
-                    <Route exact path='/add' component={Create} />
-                    <Route exact path='/post/edit/:id' component={Edit} />
+                    <Switch>
+                        <Route exact path='/' component={Dashboard} />
+                        <Route exact path='/category/:category'  component={Dashboard} />
+                        <Route exact path='/:category/:id'  component={Post} />
+                        <Route exact path='/add' component={Create} />
+                        <Route exact path='/post/edit/:id' component={Edit} />
+                        <Route component={Error} />
+                    </Switch>    
                 </div>
             </Router>
         )

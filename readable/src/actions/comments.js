@@ -15,8 +15,6 @@ export const handleComments = (id) => {
     }
 }
 
-
-
 export function resetComments () {
     return  {
         type: RESET_COMMENTS

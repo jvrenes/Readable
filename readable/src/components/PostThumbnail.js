@@ -11,7 +11,7 @@ class Posts extends Component {
         const { post } = this.props
         return(
             <div className="card p-0 mb-2 " >
-                <Link to={`/post/${post.id}`} className="">
+                <Link to={`/${post.category}/${post.id}`} className="">
                     <div className="card-body">
                         <h5 className="card-title ">{post.title}</h5>
                             <p className="text-muted mb-0 ">
@@ -23,6 +23,9 @@ class Posts extends Component {
                     </div>
                     <div className="card-footer mb-auto">
                         <small className="text-muted ">{formatDate(post.timestamp)}</small>
+                        { post.commentCount === 1
+                            ? <small className="text-muted float-right">1 comment</small>
+                            : <small className="text-muted float-right">{post.commentCount} comments</small> }
                                 
                     </div>
                 </Link>

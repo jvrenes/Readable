@@ -121,3 +121,10 @@ export const addCommentToServer = comment => {
     body: JSON.stringify(comment) 
   }).then((res) => res.json())
 }
+
+export const getPost = (id) => {
+  return fetch(`${api}/posts/${id}`, {
+    method: 'GET',
+    headers
+  }).then((res) => res.json())
+}

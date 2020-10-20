@@ -85,12 +85,13 @@ class Create extends Component {
                         <Form className="col-md-12" onSubmit={(e) =>this.handleSubmit(e, post)}>
                             <Row className="mb-4">
                                 <Col>
-                                    <Form.Control onChange={this.handleAuthor} value={this.state.author} size="lg"  />
+                                    <Form.Label>Author</Form.Label>
+                                    <Form.Control onChange={this.handleAuthor} value={this.state.author} size="lg" />
                                 </Col>
                                 <Col>
-                                    
-                                    <Form.Control onChange={this.handleCategory} as="select" size="lg" value={post.category} selected={post.category} >
-                                        <option disabled>{this.state.category}</option>
+                                    <Form.Label>Category</Form.Label>
+                                    <Form.Control onChange={this.handleCategory} as="select" size="lg" defaultValue={post.category} selected={post.category} >
+                                        <option disabled>Choose category...</option>
                                         {
                                             categoryNames.map((category, index) => {
                                                 return <option key={index} value={category}>{category}</option>
@@ -102,7 +103,7 @@ class Create extends Component {
                             <Row className="mb-4">
                                 <Col>
                                     <Form.Label>Title</Form.Label>
-                                    <Form.Control onChange={this.handleTitle} value={this.state.title} size="lg"/>
+                                    <Form.Control onChange={this.handleTitle} className="" size="lg" value={this.state.title} />
                                 </Col>
                             </Row>
                             <Row className="mb-4">

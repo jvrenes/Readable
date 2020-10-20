@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { formatDate } from '../utils/api'
 import { AiOutlineDislike, AiOutlineLike, AiFillDislike, AiFillLike } from 'react-icons/ai'
 import { Button } from 'react-bootstrap'
-import { handleChangeVote, handleDeletePost } from '../actions/posts'
+import { handleChangeVote, handleDeletePost, handleGetPost } from '../actions/posts'
 import { handleComments } from '../actions/comments'
 import Comments from './Comments'
-import CreateComment from './CreateComment'
+import Error from './Error'
+import { getPost } from '../utils/api'
 
 
 class Post extends Component {
 
     state = {
-        toHome: false,
+        post: null,
+        toHome: false
     }
 
     componentDidMount() {
@@ -34,17 +36,44 @@ class Post extends Component {
     }
 
     handleDelete = () => {
-        const { post } = this.props
+        const { post } = this.state
         this.props.dispatch(handleDeletePost(post))
         this.setState(() => ({
             toHome: true
         }))
     }
 
+    componentDidMount () {
+        const { id, dispatch, post } = this.props
+        dispatch(handleComments(id))
+        if (post === null) {
+            dispatch(handleGetPost(id))
+                getPost(id)
+                    .then((data) => {
+                        if(data.error === "There was an error.") {
+                            this.setState(() => ({
+                                post: 'error'
+                            }))
+                        } else {
+                            this.setState(() => ({
+                                post: data
+                            }))
+                        }
+                    })
+        } else {
+            this.setState(() => ({
+                post: post
+            }))
+        }
+    }
+
     render() {
-        const { post, id, comments } = this.props
-        if (post === undefined || this.state.toHome === true) {
-            return <Redirect to='/' />
+        const { id } = this.props
+        const { post } = this.state
+        if (post === 'error' || post === null) {
+            return (
+                <Error />
+            )
         } else {
             return (
                 <div className="card shadow mt-4">
@@ -79,10 +108,10 @@ class Post extends Component {
                                     ? <AiFillDislike/>
                                     : <AiFillLike/>}
                                     </p>
-                                    
+                  
                                 </div>
                             </div>
-                            <Comments parentId={id}/> 
+                            <Comments parentId={id} /> 
                         </div> 
                     </div> 
                 </div>
@@ -91,14 +120,12 @@ class Post extends Component {
     }
 }
 
-function mapStateToProps({posts, comments}, props) {
+function mapStateToProps( {posts}, props) {
     const { id } = props.match.params
-    const post = posts[id]
-    
+    const post = posts[id] ? posts[id] : null
     return{
-        post,
         id,
-        comments
+        post
     }
 }
 
