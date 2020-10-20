@@ -85,13 +85,12 @@ class Create extends Component {
                         <Form className="col-md-12" onSubmit={(e) =>this.handleSubmit(e, post)}>
                             <Row className="mb-4">
                                 <Col>
-                                    <Form.Label>Author</Form.Label>
-                                    <Form.Control onChange={this.handleAuthor} value={this.state.author} size="lg" placeholder={post.author} />
+                                    <Form.Control onChange={this.handleAuthor} value={this.state.author} size="lg"  />
                                 </Col>
                                 <Col>
-                                    <Form.Label>Category</Form.Label>
-                                    <Form.Control onChange={this.handleCategory} as="select" size="lg" defaultValue={post.category} selected={post.category} >
-                                        <option disabled>Choose category...</option>
+                                    
+                                    <Form.Control onChange={this.handleCategory} as="select" size="lg" value={post.category} selected={post.category} >
+                                        <option disabled>{this.state.category}</option>
                                         {
                                             categoryNames.map((category, index) => {
                                                 return <option key={index} value={category}>{category}</option>
@@ -103,13 +102,13 @@ class Create extends Component {
                             <Row className="mb-4">
                                 <Col>
                                     <Form.Label>Title</Form.Label>
-                                    <Form.Control onChange={this.handleTitle} className="" size="lg" placeholder={post.title} />
+                                    <Form.Control onChange={this.handleTitle} value={this.state.title} size="lg"/>
                                 </Col>
                             </Row>
                             <Row className="mb-4">
                                 <Col>
                                     <Form.Label>Post Content</Form.Label>
-                                    <Form.Control onChange={this.handleBody} as="textarea" heigth={"300px"} className="" size="lg" placeholder={post.body} />
+                                    <Form.Control onChange={this.handleBody} as="textarea" heigth={"300px"} className="" size="lg" value={this.state.body} />
                                 </Col>
                             </Row>
                                     

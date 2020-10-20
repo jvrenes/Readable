@@ -31,7 +31,7 @@ class Comment extends Component {
                     <h6 className="font-medium">{comments[id].author} </h6>
                     <span className="float-right text-muted">{comments[id].voteScore}{comments[id].voteScore < 0 ? <AiFillDislike/> : <AiFillLike/>}
                     </span>
-                    <span className="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
+                    <span className="m-b-15 d-block">{comments[id].body}</span>
                     <AiOutlineLike onClick={this.handleVoteUp} size={25} className="vote"/>
                     <AiOutlineDislike onClick={this.handleVoteDown} size={25} className="vote"/>
                     <div className="comment-footer mt-2">
