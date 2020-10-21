@@ -18,11 +18,6 @@ class Post extends Component {
         toHome: false
     }
 
-    componentDidMount() {
-        const { id } = this.props
-        this.props.dispatch(handleComments(id))
-    }
-
     handleVoteUp = () => {
         const { id } = this.props
         const vote = 'upVote'
