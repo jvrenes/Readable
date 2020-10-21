@@ -6,14 +6,6 @@ export const UPDATE_VOTE = 'UPDATE_VOTE'
 export const DELETE_POST = 'DELETE_POST'
 
 
-
-export function receivePosts (posts) {
-    return {
-        type: RECEIVE_POSTS,
-        posts
-    }
-}
-
 export function handleAddPost(post) {
     return (dispatch) => {
         return addPostToServer(post)
@@ -23,7 +15,7 @@ export function handleAddPost(post) {
     }
 }
 
-function addPost (post) {
+export function addPost (post) {
     return {
         type: ADD_POST,
         post
@@ -46,7 +38,6 @@ export function handleChangeVote (vote, id) {
 
 export function handleDeletePost (post) {
     return (dispatch) => {
-        console.log("DLETING POST: ", post)
         dispatch(deletePost(post))
         return deletePostToServer(post.id)
             .catch((err) => {
@@ -76,7 +67,6 @@ export function handleGetPost (id) {
         return getPost(id)
             .catch((err) => alert("There was an error getting the post from server"))
             .then((data) => {
-                console.log(data)
                 dispatch(addPost(data))
             })
     }

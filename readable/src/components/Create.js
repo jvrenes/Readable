@@ -72,8 +72,8 @@ class Create extends Component {
                                     <Form.Control onChange={this.handleAuthor} value={this.state.author} size="lg" placeholder="Author" required />
                                 </Col>
                                 <Col>
-                                    <Form.Control onChange={this.handleCategory} as="select" size="lg" defaultValue="Choose category..." required>
-                                        <option disabled>Choose category...</option>
+                                    <Form.Control onChange={this.handleCategory} as="select" size="lg" placeHolder="Choose category" required>
+                                        <option value="">Choose category...</option>
                                         {
                                             categoryNames.map((category, index) => {
                                                 return <option key={index} value={category}>{category}</option>
