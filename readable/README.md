@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Author
+Javier Renes [LinkedIn profile](https://www.linkedin.com/in/javier-renes-bb5b9292/)
 
 ## Available Scripts
 
